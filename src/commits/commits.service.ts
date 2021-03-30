@@ -1,10 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { CreateTweetDto } from 'src/tweets/dto/create-tweet.dto';
+import { TweetsService } from 'src/tweets/tweets.service';
 import { CreateCommitDto } from './dto/create-commit.dto';
-import { UpdateCommitDto } from './dto/update-commit.dto';
 
 @Injectable()
 export class CommitsService {
-  create(createCommitDto: CreateCommitDto) {
-    return 'This action adds a new commit';
+  constructor(private readonly tweetService: TweetsService) {}
+  
+  async create(createCommitDto: CreateCommitDto) {
+    for await (const commit of createCommitDto.commits) {
+      const tweetBody: CreateTweetDto = {
+        message: `Commit update: ${commit.message} at ${commit.timestamp} by ${createCommitDto.author.name}`
+      }      
+      this.tweetService.create(tweetBody);
+    }
+
   }
 }
