@@ -8,8 +8,8 @@ export class CommitDto {
     message: string;
     timestamp: string;
     url: string;
+    author: AuthorDto;
 }
 export class CreateCommitDto {
     commits: Array<CommitDto>;
-    author: AuthorDto;
 }    

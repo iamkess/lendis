@@ -10,7 +10,7 @@ export class CommitsService {
   async create(createCommitDto: CreateCommitDto) {
     for await (const commit of createCommitDto.commits) {
       const tweetBody: CreateTweetDto = {
-        message: `Commit update: ${commit.message} at ${commit.timestamp} by ${createCommitDto.author.name}`
+        message: `Commit update: ${commit.message} at ${commit.timestamp} by ${commit.author.name}`
       }      
       this.tweetService.create(tweetBody);
     }
