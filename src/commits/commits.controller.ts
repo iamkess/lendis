@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CommitsService } from './commits.service';
 import { CreateCommitDto } from './dto/create-commit.dto';
 import { UpdateCommitDto } from './dto/update-commit.dto';
@@ -9,8 +8,9 @@ export class CommitsController {
   constructor(private readonly commitsService: CommitsService) {}
 
   @Post()
-  create(@Req() req: Request) {
-    console.log(req.body);    
-    return this.commitsService.create(req);
+  create(@Body() createCommitDto: CreateCommitDto) {
+    console.log(createCommitDto);
+    
+    return this.commitsService.create(createCommitDto);
   }
 }
